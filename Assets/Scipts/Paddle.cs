@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,24 +9,30 @@ public class Paddle : MonoBehaviour
 
     GameObject ball;
 
+    private GameController gameController;
+
     private void Start()
     {
+        gameController = FindObjectOfType<GameController>();
         ball = FindObjectOfType<Ball>().gameObject;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Move(Vector2 _direction)
     {
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            Debug.Log("Left Arrow Pressed!");
-            transform.Translate(Vector2.left * MoveSpeed * Time.deltaTime);
-        }
+        transform.Translate(_direction * MoveSpeed * Time.deltaTime);
+    }
 
-        if (Input.GetKey(KeyCode.RightArrow))
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Pickup pickup = collision.transform.GetComponent<Pickup>();
+        if (pickup)
         {
-            Debug.Log("Right Arrow Pressed!");
-            transform.Translate(Vector2.right * MoveSpeed * Time.deltaTime);
+            if (pickup.PickUpType == Pickup.ePickUpType.Extralife)
+            {
+                gameController.AddLife();
+            }
+            
+            Destroy(pickup.gameObject);
         }
     }
 }

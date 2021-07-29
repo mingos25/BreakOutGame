@@ -8,14 +8,29 @@ public class GameController : MonoBehaviour
 
     public int Lives = 3;
 
+    public int InitialLives = 3;
+
     public UIController UIController;
+    public AudioController AudioController;
+    public BlockController BlockController;
 
     public Ball Ball;
 
     public Vector3 BallResetPosition;
 
+    public GameObject PickUpPrefab;
+    public GameObject ExplosionPrefab;
+
     private bool isPlaying = false;
+    public bool IsPlaying
+    {
+        get { return isPlaying; }
+    }
     private bool isPaused = false;
+    public bool IsPaused
+    {
+        get { return isPaused; }
+    }
 
     public void Start()
     {
@@ -46,6 +61,20 @@ public class GameController : MonoBehaviour
         UIController.UpdateScoreText(Score);
     }
 
+    public void SpawnPrefab(Vector3 _pos)
+    {
+        GameObject.Instantiate(PickUpPrefab, _pos, Quaternion.identity);
+    }
+
+    public void AddLife()
+    {
+        if (Lives < InitialLives)
+        {
+            Lives++;
+            UIController.UpdateLives(Lives);
+        }
+    }
+
     public void BallLost()
     {
         // reset position
@@ -55,12 +84,13 @@ public class GameController : MonoBehaviour
         currentVelocity.y = Mathf.Abs(currentVelocity.y);
         Ball.Velocity = currentVelocity;
 
+        Ball.LastObjectHit = null;
+
         // lose life
         Lives--;
         UIController.UpdateLives(Lives);
         if (Lives < 0)
         {
-            Debug.Log("Game Over!");
             GameOver();
         }
     }
@@ -81,12 +111,13 @@ public class GameController : MonoBehaviour
 
     void ResetGame()
     {
-        Lives = 3;
+        Lives = InitialLives;
         Score = 0;
         UIController.UpdateScoreText(Score);
         UIController.UpdateLives(Lives);
         UIController.HideStartGamePanel();
         UIController.HideGameOver();
+        BlockController.ResetBlocks();
     }
 
     public void PauseGame()

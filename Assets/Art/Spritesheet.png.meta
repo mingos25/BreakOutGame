@@ -14,6 +14,9 @@ TextureImporter:
   - first:
       213: 756911166660455246
     second: Block
+  - first:
+      213: 403005533434085257
+    second: ExtraLife
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -45,8 +48,8 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: 0
-    aniso: -1
-    mipBias: -100
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -194,6 +197,27 @@ TextureImporter:
       bones: []
       spriteID: e4ba25f12b6118a00800000000000000
       internalID: 756911166660455246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ExtraLife
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 62
+        width: 31
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 98ffadeb563c79500800000000000000
+      internalID: 403005533434085257
       vertices: []
       indices: 
       edges: []

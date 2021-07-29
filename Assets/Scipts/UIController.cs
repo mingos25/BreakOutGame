@@ -29,7 +29,7 @@ public class UIController : MonoBehaviour
     {
         for (int i = LifeIcons.Count - 1; i >= 0; i--)
         {
-            LifeIcons[i].SetActive(_value >= i);
+            LifeIcons[i].SetActive(_value > i);
         }
     }
 
